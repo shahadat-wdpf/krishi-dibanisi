@@ -1,0 +1,14 @@
+
+# Database connection file (contains credentials)
+config/db.php
+
+# Temporary files
+tmp/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE files
+.vscode/
+*.log
