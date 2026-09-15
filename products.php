@@ -111,7 +111,7 @@ if($category_slug && !empty($products)) {
                     <div class="product-content">
                         <div class="product-category"><?= htmlspecialchars($product['category_name']) ?></div>
                         <h3 class="product-title"><?= htmlspecialchars($product['name']) ?></h3>
-                        <p style="color:var(--text-light); font-size:0.95rem; margin-bottom:1rem; min-height:45px; line-height:1.6;">
+                        <p class="product-desc-text" style="color:var(--text-light); font-size:0.95rem; margin-bottom:1rem; line-height:1.6;">
                             <?= htmlspecialchars(mb_strimwidth($product['description'], 0, 60, '...')) ?>
                         </p>
                         <div class="product-price">৳ <?= number_format($product['price'], 2) ?> <span>/<?= htmlspecialchars($product['unit']) ?></span></div>
