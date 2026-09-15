@@ -62,7 +62,12 @@ if(!empty($cart_items)) {
                             ?>
                             <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
                                 <td style="padding:1rem; display:flex; align-items:center; gap:1rem;">
-                                    <div style="width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:8px;"></div>
+                                    <?php
+                                        $cart_img = (!empty($p['image']) && file_exists(__DIR__ . '/assets/images/' . $p['image'])) 
+                                            ? 'assets/images/' . $p['image'] 
+                                            : 'assets/images/default.jpg';
+                                    ?>
+                                    <img src="<?= htmlspecialchars($cart_img) ?>" alt="<?= htmlspecialchars($p['name']) ?>" style="width:45px; height:45px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
                                     <strong><?= htmlspecialchars($p['name']) ?></strong>
                                 </td>
                                 <td style="padding:1rem;"><?= $qty ?> <?= htmlspecialchars($p['unit']) ?></td>

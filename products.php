@@ -91,15 +91,14 @@ if($category_slug && !empty($products)) {
                      data-product-category="<?= htmlspecialchars($product['category_name']) ?>"
                      data-product-stock="<?= $product['stock'] ?>"
                      data-product-featured="<?= $product['is_featured'] ?>"
-                     data-product-img="<?php 
-                            $img_src = '';
-                            if (!empty($product['image']) && $product['image'] !== 'default.jpg') {
-                                $img_src = (strpos($product['image'], 'http') === 0) ? $product['image'] : 'assets/images/'.$product['image'];
-                            } else {
-                                $cat_id = $product['category_id'] ?? 1;
-                                $img_src = $category_images[$cat_id] ?? 'https://images.unsplash.com/photo-1628102491629-77858ab5721f?q=80&w=400&auto=format&fit=crop';
-                            }
-                            echo htmlspecialchars($img_src);
+                     data-product-img="<?php                             $img_src = '';
+                             if (!empty($product['image']) && (strpos($product['image'], 'http') === 0 || file_exists(__DIR__ . '/assets/images/' . $product['image']))) {
+                                 $img_src = (strpos($product['image'], 'http') === 0) ? $product['image'] : 'assets/images/' . $product['image'];
+                             } else {
+                                 $cat_id = $product['category_id'] ?? 1;
+                                 $img_src = $category_images[$cat_id] ?? 'https://images.unsplash.com/photo-1628102491629-77858ab5721f?q=80&w=400&auto=format&fit=crop';
+                             }
+                             echo htmlspecialchars($img_src);
                      ?>">
                     <?php if($product['is_featured']): ?>
                         <span class="badge-featured">Popular</span>

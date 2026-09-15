@@ -98,10 +98,9 @@ try {
                         <td style="font-weight:700; color:var(--white);">#<?= $product['id'] ?></td>
                         <td>
                             <?php 
-                                $thumb_path = file_exists('../assets/images/'.$product['image']) ? '../assets/images/'.$product['image'] : '../assets/images/'.$product['image'];
-                                if(!file_exists($thumb_path) || $product['image'] == 'default.jpg') {
-                                    $thumb_path = 'https://via.placeholder.com/40x40/063a24/ffffff?text=' . urlencode(mb_substr($product['name'],0,1));
-                                }
+                                $thumb_path = (!empty($product['image']) && file_exists(__DIR__ . '/../assets/images/' . $product['image']))
+                                    ? '../assets/images/' . $product['image'] 
+                                    : 'https://via.placeholder.com/40x40/063a24/ffffff?text=' . urlencode(mb_substr($product['name'],0,1));
                             ?>
                             <img src="<?= $thumb_path ?>" style="width:45px; height:45px; object-fit:cover; border-radius:8px; border:1px solid var(--glass-border);" alt="Thumb">
                         </td>

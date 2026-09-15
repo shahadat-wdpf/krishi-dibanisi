@@ -131,7 +131,12 @@ $categories = $pdo->query("SELECT * FROM categories")->fetchAll();
                 <div style="display:flex; gap:2rem; align-items:center; background:rgba(255,255,255,0.02); padding:1.5rem; border-radius:12px; border:1px solid var(--glass-border);">
                     <div style="text-align:center;">
                         <p style="font-size:0.8rem; color:var(--text-light); margin-bottom:0.5rem; opacity:0.6;">বর্তমান ছবি</p>
-                        <img src="../assets/images/<?= htmlspecialchars($product['image']) ?>" alt="Product image" style="width:120px; height:120px; object-fit:cover; border-radius:12px; border:2px solid var(--glass-border); box-shadow:0 10px 20px rgba(0,0,0,0.2);">
+                        <?php
+                            $edit_img = (!empty($product['image']) && file_exists(__DIR__ . '/../assets/images/' . $product['image'])) 
+                                ? '../assets/images/' . $product['image'] 
+                                : '../assets/images/default.jpg';
+                        ?>
+                        <img src="<?= htmlspecialchars($edit_img) ?>" alt="Product image" style="width:120px; height:120px; object-fit:cover; border-radius:12px; border:2px solid var(--glass-border); box-shadow:0 10px 20px rgba(0,0,0,0.2);">
                     </div>
                     <div style="flex:1;">
                         <label style="display:block; margin-bottom:0.5rem; color:var(--text-light); font-size:0.9rem;">নতুন ছবি আপলোড করুন</label>
