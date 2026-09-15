@@ -1241,141 +1241,158 @@ ul {
   }
 }
 
-/* ==================== MODERN COMPACT MOBILE PRODUCT & CATEGORY GRID ==================== */
+/* ==================== MODERN COMPACT MOBILE 4-COLUMN PRODUCT & CATEGORY GRID ==================== */
 @media (max-width: 1200px) {
   .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 840px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
   }
-  .section {
-    padding: 3rem 4%;
-  }
-  .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .grid-cart, .grid-checkout, .grid-2 { 
+    grid-template-columns: 1fr; 
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 products side by side on mobile screens (Daraz / Amazon style) */
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4 products per row on mobile */
+    gap: 0.4rem !important;
+  }
+
+  .section {
+    padding: 2rem 2.5% !important;
+  }
+
+  .section-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 2rem !important;
   }
 
   .categories-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 category pills per row on mobile */
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4 categories per row on mobile */
+    gap: 0.4rem !important;
   }
 
   .category-card {
-    padding: 1.2rem 0.5rem;
-    border-radius: 24px;
+    padding: 0.75rem 0.25rem !important;
+    border-radius: 16px !important;
   }
 
   .category-img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 0.75rem;
+    width: 45px !important;
+    height: 45px !important;
+    margin-bottom: 0.4rem !important;
+    border-width: 2px !important;
   }
 
   .category-card h3 {
-    font-size: 0.85rem;
+    font-size: 0.72rem !important;
   }
 
-  /* Compact Product Card for Mobile */
+  /* Compact 4-Column Product Cards */
   .product-card {
-    border-radius: 14px;
+    border-radius: 8px !important;
   }
 
   .product-img-wrapper {
-    height: 145px;
+    height: 90px !important;
   }
 
   .badge-featured {
-    top: 8px;
-    left: 8px;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.65rem;
+    top: 4px !important;
+    left: 4px !important;
+    padding: 0.15rem 0.35rem !important;
+    font-size: 0.52rem !important;
   }
 
   .product-content {
-    padding: 0.75rem 0.6rem;
+    padding: 0.4rem 0.3rem !important;
+    align-items: center !important;
+    text-align: center !important;
   }
 
   .product-category {
-    font-size: 0.68rem;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.2rem;
+    font-size: 0.58rem !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 0.15rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
   }
 
   .product-title {
-    font-size: 0.9rem;
-    line-height: 1.25;
-    margin-bottom: 0.35rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 2.3em;
+    font-size: 0.75rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.25rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    height: 2.3em !important;
   }
 
-  .product-content p {
-    display: none; /* Hide long description on mobile cards so cards remain compact & uniform */
+  .product-content p.product-desc-text {
+    display: none !important;
   }
 
   .product-price {
-    font-size: 1.15rem;
-    margin-bottom: 0.35rem;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.2rem !important;
   }
 
   .product-price span {
-    font-size: 0.85rem;
+    font-size: 0.65rem !important;
   }
 
   .product-content > div {
-    font-size: 0.75rem !important;
-    margin-bottom: 0.35rem !important;
+    font-size: 0.62rem !important;
+    margin-bottom: 0.2rem !important;
   }
 
-  /* Compact Button Group for Mobile 2-Column Cards */
+  /* Compact Action Buttons for 4-Column Mobile Grid */
   .product-card-actions {
-    flex-direction: row;
+    flex-direction: row !important;
   }
 
   .add-to-cart-seamless {
-    padding: 0.65rem 0.35rem;
-    font-size: 0.78rem;
-    gap: 0.3rem;
+    padding: 0.45rem 0.15rem !important;
+    font-size: 0.68rem !important;
+    gap: 0.2rem !important;
+    justify-content: center !important;
   }
 
   .btn-details {
-    padding: 0.65rem 0.45rem;
-    font-size: 0.75rem;
+    padding: 0.45rem 0.2rem !important;
+    font-size: 0.65rem !important;
+    gap: 0.15rem !important;
+    justify-content: center !important;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.25rem !important;
   }
   .product-img-wrapper {
-    height: 125px;
+    height: 75px !important;
+  }
+  .product-title {
+    font-size: 0.68rem !important;
+  }
+  .product-price {
+    font-size: 0.78rem !important;
   }
   .add-to-cart-seamless {
-    font-size: 0.72rem;
-    padding: 0.55rem 0.2rem;
+    font-size: 0.62rem !important;
+    padding: 0.35rem 0.1rem !important;
   }
   .btn-details {
-    padding: 0.55rem 0.25rem;
-    font-size: 0.7rem;
+    font-size: 0.6rem !important;
+    padding: 0.35rem 0.1rem !important;
   }
 }
 
