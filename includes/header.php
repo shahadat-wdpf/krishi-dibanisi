@@ -63,7 +63,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         $cart_count = array_sum($_SESSION['cart']);
                     }
                 ?>
-                <span class="kd-cart-count"><?= $cart_count ?></span>
+                <span class="kd-cart-count cart-count"><?= $cart_count ?></span>
             </a>
 
             <!-- Desktop Auth Buttons -->

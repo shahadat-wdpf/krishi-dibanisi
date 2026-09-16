@@ -99,8 +99,11 @@ $grand_total = $total_price + $delivery_charge;
                     <div id="mobileBankingPanel" style="display:none; background:rgba(45, 106, 79, 0.1); border:1px dashed var(--primary); padding:1.5rem; border-radius:12px; margin-top:1.5rem; animation:fadeIn 0.3s ease;">
                         <style>@keyframes fadeIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }</style>
                         <p style="color:var(--text-light); margin-bottom:1.5rem; font-size:0.95rem; line-height:1.6;">
-                            <strong style="color:var(--accent);">নির্দেশনা:</strong> নিচের নম্বরে সেন্ড মানি (Send Money) করে আপনার পেমেন্ট নম্বর এবং ট্রানজ্যাকশন আইডি (TrxID) নির্দিষ্ট বক্সে দিন।<br>
-                            <span style="font-family:'Outfit',sans-serif; color:var(--white); font-size:1.3rem; display:inline-block; margin-top:0.8rem; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:0.5rem 1rem; border-radius:8px;"><i class="fa-solid fa-money-bill-transfer" style="color:#34d399; margin-right:8px;"></i> বিকাশ/নগদ (Personal): <strong style="color:var(--accent);"><?= htmlspecialchars($site_settings['bkash_number'] ?? '+880 171XXXXXXX') ?></strong></span>
+                            <strong style="color:var(--accent);">
+                                নির্দেশনা:</strong>
+                                 নিচের নম্বরে সেন্ড মানি 
+                                 (Send Money) করে আপনার পেমেন্ট নম্বর এবং ট্রানজ্যাকশন আইডি (TrxID) নির্দিষ্ট বক্সে দিন।<br>
+                            <span style="font-family:'Outfit',sans-serif; color:var(--white); font-size:1.3rem; display:inline-block; margin-top:0.8rem; letter-spacing:1px; background:rgba(0,0,0,0.2); padding:0.5rem 1rem; border-radius:8px;"><i class="fa-solid fa-money-bill-transfer" style="color:#34d399; margin-right:8px;"></i> বিকাশ/নগদ (Personal): <strong style="color:var(--accent);"><?= htmlspecialchars($site_settings['bkash_number'] ?? '+880 1952149920') ?></strong></span>
                         </p>
                         <div class="grid-2">
                             <div>

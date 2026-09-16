@@ -2,16 +2,10 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['success' => false, 'message' => 'Please login to add to cart.', 'login_required' => true]);
-        exit();
-    }
-    
     $product_id = isset($_POST['product_id']) ? (int)$_POST['product_id'] : 0;
     
     if ($product_id > 0) {
-        if (!isset($_SESSION['cart'])) {
+        if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
         
@@ -27,9 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         echo json_encode(['success' => true, 'total_items' => $total_items]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid product.']);
+        echo json_encode(['success' => false, 'message' => 'অবৈধ পণ্য আইডি।']);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    echo json_encode(['success' => false, 'message' => 'অবৈধ রিকোয়েস্ট।']);
 }
-?>

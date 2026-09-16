@@ -69,63 +69,72 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoPlay();
     }
 
+    // ==================== DYNAMIC CART BADGE UPDATE ====================
+    window.updateCartBadge = function(count) {
+        const cartBadges = document.querySelectorAll('.kd-cart-count, .cart-count');
+        cartBadges.forEach(badge => {
+            badge.textContent = count;
+            if (badge.classList.contains('kd-cart-count')) {
+                badge.style.display = 'inline-flex';
+            }
+            badge.style.transform = 'scale(1.3)';
+            badge.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 300);
+        });
+    };
+
     // ==================== AJAX ADD TO CART ====================
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const cartCountSpan = document.querySelector('.cart-count');
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('.add-to-cart');
+        if (!button) return;
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            const originalText = this.innerHTML;
-            
-            // Visual feedback
-            this.disabled = true;
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> যোগ হচ্ছে...';
+        const productId = button.getAttribute('data-id') || button.dataset.id || button.getAttribute('data-product-id');
+        if (!productId) return;
 
-            fetch('add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `product_id=${productId}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Update cart count UI
-                    if(cartCountSpan) {
-                        cartCountSpan.textContent = data.total_items;
-                        // Small animation
-                        cartCountSpan.style.transform = 'scale(1.5)';
-                        setTimeout(() => cartCountSpan.style.transform = 'scale(1)', 300);
-                    }
-                    
-                    // Button success state
-                    this.style.background = '#40916c';
-                    this.innerHTML = '<i class="fa-solid fa-check"></i> যোগ হয়েছে';
-                    
-                    setTimeout(() => {
-                        this.disabled = false;
-                        this.style.background = '';
-                        this.innerHTML = originalText;
-                    }, 2000);
-                } else {
-                    if (data.login_required) {
-                        alert('পণ্য কার্টে যোগ করতে দয়া করে আগে লগইন করুন।');
-                        window.location.href = 'login.php';
-                    } else {
-                        alert('পণ্য যোগ করতে সমস্যা হয়েছে: ' + data.message);
-                    }
-                    this.disabled = false;
-                    this.innerHTML = originalText;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('একটি ভুল হয়েছে। আবার চেষ্টা করুন।');
-                this.disabled = false;
-                this.innerHTML = originalText;
-            });
+        e.preventDefault();
+        const originalText = button.innerHTML;
+
+        // Visual feedback
+        button.disabled = true;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> যোগ হচ্ছে...';
+
+        fetch('add_to_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `product_id=${encodeURIComponent(productId)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Instantly update cart count UI across navbar
+                window.updateCartBadge(data.total_items);
+
+                // Button success state
+                button.style.background = '#10b981';
+                button.style.color = '#ffffff';
+                button.innerHTML = '<i class="fa-solid fa-check"></i> যোগ হয়েছে';
+
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.innerHTML = originalText;
+                }, 2000);
+            } else {
+                alert('পণ্য যোগ করতে সমস্যা হয়েছে: ' + (data.message || 'Error'));
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('একটি ভুল হয়েছে। আবার চেষ্টা করুন।');
+            button.disabled = false;
+            button.innerHTML = originalText;
         });
     });
 
@@ -172,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cart button
         const cartBtn = document.getElementById('modalCartBtn');
+        cartBtn.setAttribute('data-id', productId);
         cartBtn.dataset.id = productId;
         cartBtn.disabled = stock <= 0;
         cartBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> কার্টে যোগ করুন';
