@@ -92,7 +92,7 @@ $products_data = [
 ];
 
 try {
-    $stmt = $pdo->prepare("INSERT INTO products (name, category_id, price, unit, stock, image, is_featured, description, farmer_id) 
+    $stmt = $pdo->prepare("INSERT INTO kd_products (name, category_id, price, unit, stock, image, is_featured, description, farmer_id) 
                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
                            ON DUPLICATE KEY UPDATE 
                            category_id = VALUES(category_id),

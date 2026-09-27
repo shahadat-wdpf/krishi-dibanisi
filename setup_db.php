@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/config/db.php';
 
-echo "<h2>Database Setup: Creating 'messages' table...</h2>";
+echo "<h2>Database Setup: Creating 'kd_messages' table...</h2>";
 
 try {
-    $sql = "CREATE TABLE IF NOT EXISTS `messages` (
+    $sql = "CREATE TABLE IF NOT EXISTS `kd_messages` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `name` varchar(100) NOT NULL,
         `email` varchar(100) NOT NULL,
@@ -14,7 +14,7 @@ try {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
     
     $pdo->exec($sql);
-    echo "<h3>Success! The 'messages' table has been created.</h3>";
+    echo "<h3>Success! The 'kd_messages' table has been created.</h3>";
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }

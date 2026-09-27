@@ -5,13 +5,13 @@ require_once __DIR__ . '/includes/header.php';
 try {
     if (isset($pdo)) {
         $admin_email = 'admin@krishidibanisi.com';
-        $checkStmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $checkStmt = $pdo->prepare("SELECT id FROM kd_users WHERE email = ?");
         $checkStmt->execute([$admin_email]);
         $existingAdmin = $checkStmt->fetch();
         
         if (!$existingAdmin) {
             $default_hash = password_hash('password', PASSWORD_DEFAULT);
-            $insertStmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'admin')");
+            $insertStmt = $pdo->prepare("INSERT INTO kd_users (name, email, password, role) VALUES (?, ?, ?, 'admin')");
             $insertStmt->execute(['Admin User', $admin_email, $default_hash]);
         }
     }
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception("ডাটাবেস কানেকশন প্রস্তুত নয়। অনুগ্রহ করে MySQL চালু রাখুন।");
         }
 
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT * FROM kd_users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 

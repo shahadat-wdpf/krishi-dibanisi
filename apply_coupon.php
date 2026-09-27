@@ -27,7 +27,7 @@ $total_price = 0;
 try {
     $placeholders = str_repeat('?,', count($cart_items) - 1) . '?';
     $ids = array_keys($cart_items);
-    $stmt = $pdo->prepare("SELECT id, price FROM products WHERE id IN ($placeholders)");
+    $stmt = $pdo->prepare("SELECT id, price FROM kd_products WHERE id IN ($placeholders)");
     $stmt->execute($ids);
     $products = $stmt->fetchAll();
     
@@ -41,7 +41,7 @@ try {
 
 try {
     // Check coupon in DB
-    $stmt = $pdo->prepare("SELECT * FROM coupons WHERE code = ? AND is_active = 1 LIMIT 1");
+    $stmt = $pdo->prepare("SELECT * FROM kd_coupons WHERE code = ? AND is_active = 1 LIMIT 1");
     $stmt->execute([$code]);
     $coupon = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -63,7 +63,7 @@ try {
         }
         
         $user_id = $_SESSION['user_id'];
-        $check_stmt = $pdo->prepare("SELECT COUNT(*) FROM orders WHERE user_id = ?");
+        $check_stmt = $pdo->prepare("SELECT COUNT(*) FROM kd_orders WHERE user_id = ?");
         $check_stmt->execute([$user_id]);
         $order_count = $check_stmt->fetchColumn();
         

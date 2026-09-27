@@ -2,7 +2,7 @@
 require_once __DIR__ . '/config/db.php';
 try {
     $pdo->exec("
-        CREATE TABLE IF NOT EXISTS settings (
+        CREATE TABLE IF NOT EXISTS kd_settings (
             id INT AUTO_INCREMENT PRIMARY KEY,
             setting_key VARCHAR(50) UNIQUE NOT NULL,
             setting_value TEXT
@@ -20,11 +20,11 @@ try {
         ['youtube_url', '#']
     ];
     
-    $stmt = $pdo->prepare("INSERT IGNORE INTO settings (setting_key, setting_value) VALUES (?, ?)");
+    $stmt = $pdo->prepare("INSERT IGNORE INTO kd_settings (setting_key, setting_value) VALUES (?, ?)");
     foreach($settings as $s) {
         $stmt->execute($s);
     }
-    echo "Setup Complete.";
+    echo "Setup Complete. kd_settings table তৈরি ও ডেটা যোগ হয়েছে।";
 } catch(Exception $e) {
     echo $e->getMessage();
 }

@@ -3,7 +3,7 @@
 // Fetch categories for the select dropdown
 $categories = [];
 try {
-    $categories = $pdo->query("SELECT * FROM categories")->fetchAll();
+    $categories = $pdo->query("SELECT * FROM kd_categories")->fetchAll();
 } catch(Exception $e) {}
 
 // Handle Form Submission
@@ -35,12 +35,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         // Check if product with same name already exists
-        $check_stmt = $pdo->prepare("SELECT id FROM products WHERE name = ?");
+        $check_stmt = $pdo->prepare("SELECT id FROM kd_products WHERE name = ?");
         $check_stmt->execute([$name]);
         if($check_stmt->fetch()) {
             $error = "এই নামে একটি পণ্য ইতিমধ্যে ডাটাবেসে আছে। অনুগ্রহ করে অন্য নাম ব্যবহার করুন।";
         } else {
-            $stmt = $pdo->prepare("INSERT INTO products (name, category_id, price, unit, stock, description, is_featured, image, farmer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO kd_products (name, category_id, price, unit, stock, description, is_featured, image, farmer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             // Hardcoding farmer_id=1 as the admin doing this
             $stmt->execute([$name, $category_id, $price, $unit, $stock, $description, $is_featured, $image_name, 1]);
             

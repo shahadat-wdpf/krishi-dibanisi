@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/header.php';
 // Handle Settings Update
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        $stmt = $pdo->prepare("UPDATE settings SET setting_value = ? WHERE setting_key = ?");
+        $stmt = $pdo->prepare("UPDATE kd_settings SET setting_value = ? WHERE setting_key = ?");
         
         $params = [
             'site_name' => $_POST['site_name'],

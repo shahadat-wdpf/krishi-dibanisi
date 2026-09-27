@@ -8,7 +8,7 @@ if (!$id) {
 
 // Fetch blog details
 try {
-    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM kd_blogs WHERE id = ?");
     $stmt->execute([$id]);
     $blog = $stmt->fetch();
     if (!$blog) {
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
-        $stmt = $pdo->prepare("UPDATE blogs SET title=?, slug=?, content=?, excerpt=?, image=?, type=?, author=?, tags=?, is_published=? WHERE id=?");
+        $stmt = $pdo->prepare("UPDATE kd_blogs SET title=?, slug=?, content=?, excerpt=?, image=?, type=?, author=?, tags=?, is_published=? WHERE id=?");
         $stmt->execute([$title, $slug, $content, $excerpt, $image_name, $type, $author, $tags, $is_published, $id]);
         
         echo "<script>alert('ব্লগ পোস্ট সফলভাবে আপডেট করা হয়েছে!'); window.location.href='blogs.php';</script>";

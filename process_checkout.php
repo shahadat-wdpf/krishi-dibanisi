@@ -38,20 +38,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
         
         // 1. Insert into orders
-        $stmt_order = $pdo->prepare("INSERT INTO orders (user_id, total_amount, status, shipping_address, payment_method, coupon_code, discount_amount, payment_number, trx_id) VALUES (?, ?, 'pending', ?, ?, ?, ?, ?, ?)");
+        $stmt_order = $pdo->prepare("INSERT INTO kd_orders (user_id, total_amount, status, shipping_address, payment_method, coupon_code, discount_amount, payment_number, trx_id) VALUES (?, ?, 'pending', ?, ?, ?, ?, ?, ?)");
         $stmt_order->execute([$user_id, $total_amount, $shipping_address, $payment_method, $coupon_code, $discount_amount, $payment_number, $trx_id]);
         $order_id = $pdo->lastInsertId();
         
         // 2. Fetch current prices
         $placeholders = str_repeat('?,', count($cart_items) - 1) . '?';
         $ids = array_keys($cart_items);
-        $stmt_products = $pdo->prepare("SELECT id, price FROM products WHERE id IN ($placeholders)");
+        $stmt_products = $pdo->prepare("SELECT id, price FROM kd_products WHERE id IN ($placeholders)");
         $stmt_products->execute($ids);
         $products = $stmt_products->fetchAll(PDO::FETCH_KEY_PAIR); // returns [id => price]
         
         // 3. Insert into order_items and update stock
-        $stmt_item = $pdo->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-        $stmt_stock = $pdo->prepare("UPDATE products SET stock = stock - ? WHERE id = ?");
+        $stmt_item = $pdo->prepare("INSERT INTO kd_order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+        $stmt_stock = $pdo->prepare("UPDATE kd_products SET stock = stock - ? WHERE id = ?");
         
         foreach($cart_items as $prod_id => $qty) {
             $price = $products[$prod_id] ?? 0;

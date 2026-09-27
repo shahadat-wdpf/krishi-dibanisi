@@ -6,8 +6,8 @@ $category_slug = $_GET['category'] ?? '';
 // Fetch query based on category or all
 $query_str = "
     SELECT p.*, c.name as category_name 
-    FROM products p 
-    LEFT JOIN categories c ON p.category_id = c.id
+    FROM kd_products p 
+    LEFT JOIN kd_categories c ON p.category_id = c.id
 ";
 $params = [];
 
@@ -68,7 +68,7 @@ if($category_slug && !empty($products)) {
                 <option value="products.php">সব ক্যাটাগরি</option>
                 <?php
                 try {
-                    $cats = $pdo->query("SELECT * FROM categories")->fetchAll();
+                    $cats = $pdo->query("SELECT * FROM kd_categories")->fetchAll();
                     foreach($cats as $cat) {
                         $selected = ($category_slug === $cat['slug']) ? 'selected' : '';
                         echo "<option value='products.php?category={$cat['slug']}' {$selected}>{$cat['name']}</option>";

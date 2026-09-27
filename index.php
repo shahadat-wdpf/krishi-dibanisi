@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/header.php';
 // Fetch Categories
 $categories = [];
 try {
-    $stmt = $pdo->query("SELECT * FROM categories LIMIT 12");
+    $stmt = $pdo->query("SELECT * FROM kd_categories LIMIT 12");
     $categories = $stmt->fetchAll();
 } catch(Exception $e) {}
 
@@ -13,8 +13,8 @@ $featured_products = [];
 try {
     $stmt = $pdo->query("
         SELECT p.*, c.name as category_name 
-        FROM products p 
-        LEFT JOIN categories c ON p.category_id = c.id
+        FROM kd_products p 
+        LEFT JOIN kd_categories c ON p.category_id = c.id
         WHERE p.is_featured = 1 
         ORDER BY p.id DESC LIMIT 4
     ");
@@ -299,7 +299,7 @@ $category_images = [
     <?php
     $latest_blogs = [];
     try {
-        $latest_blogs = $pdo->query("SELECT * FROM blogs WHERE is_published = 1 ORDER BY created_at DESC LIMIT 3")->fetchAll();
+        $latest_blogs = $pdo->query("SELECT * FROM kd_blogs WHERE is_published = 1 ORDER BY created_at DESC LIMIT 3")->fetchAll();
     } catch(Exception $e) {}
     ?>
     

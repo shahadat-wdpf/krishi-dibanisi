@@ -2,7 +2,7 @@
 require_once __DIR__ . '/config/db.php';
 
 $sql = "
-CREATE TABLE IF NOT EXISTS `blogs` (
+CREATE TABLE IF NOT EXISTS `kd_blogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `blogs` (
 
 try {
     $pdo->exec($sql);
-    echo "<p style='color:green; font-family:sans-serif;'>✅ blogs table তৈরি হয়েছে!</p>";
+    echo "<p style='color:green; font-family:sans-serif;'>✅ kd_blogs table তৈরি হয়েছে!</p>";
 
     // Sample data
     $samples = [
@@ -86,7 +86,7 @@ try {
         ],
     ];
 
-    $stmt = $pdo->prepare("INSERT IGNORE INTO blogs (title, slug, content, excerpt, image, type, author, tags, is_published) VALUES (?,?,?,?,?,?,?,?,1)");
+    $stmt = $pdo->prepare("INSERT IGNORE INTO kd_blogs (title, slug, content, excerpt, image, type, author, tags, is_published) VALUES (?,?,?,?,?,?,?,?,1)");
     foreach($samples as $s) {
         $stmt->execute([$s['title'], $s['slug'], $s['content'], $s['excerpt'], $s['image'], $s['type'], $s['author'], $s['tags']]);
     }

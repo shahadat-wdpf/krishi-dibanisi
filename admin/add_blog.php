@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
-        $stmt = $pdo->prepare("INSERT INTO blogs (title, slug, content, excerpt, image, type, author, tags, is_published) VALUES (?,?,?,?,?,?,?,?,?)");
+        $stmt = $pdo->prepare("INSERT INTO kd_blogs (title, slug, content, excerpt, image, type, author, tags, is_published) VALUES (?,?,?,?,?,?,?,?,?)");
         $stmt->execute([$title, $slug, $content, $excerpt, $image_name, $type, $author, $tags, $is_published]);
         
         echo "<script>alert('নতুন ব্লগ পোস্ট সফলভাবে প্রকাশিত হয়েছে!'); window.location.href='blogs.php';</script>";

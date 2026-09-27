@@ -4,7 +4,7 @@
 if (isset($_GET['delete'])) {
     $id = (int) $_GET['delete'];
     try {
-        $pdo->query("DELETE FROM products WHERE id = $id");
+        $pdo->query("DELETE FROM kd_products WHERE id = $id");
         echo "<script>alert('পণ্য মুছে ফেলা হয়েছে!'); window.location.href='products.php';</script>";
         exit;
     } catch (Exception $e) {
@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
 // Fetch Categories for filter dropdown
 $categories = [];
 try {
-    $categories = $pdo->query("SELECT id, name FROM categories ORDER BY name")->fetchAll();
+    $categories = $pdo->query("SELECT id, name FROM kd_categories ORDER BY name")->fetchAll();
 } catch (Exception $e) {}
 
 // Get selected category filter
@@ -24,8 +24,8 @@ $selected_category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
 $products = [];
 try {
     $sql = "SELECT p.*, c.name as category_name 
-            FROM products p 
-            LEFT JOIN categories c ON p.category_id = c.id";
+            FROM kd_products p 
+            LEFT JOIN kd_categories c ON p.category_id = c.id";
     
     if ($selected_category > 0) {
         $sql .= " WHERE p.category_id = ?";
@@ -43,7 +43,7 @@ try {
 // Count all products (for "all" filter badge)
 $total_count = 0;
 try {
-    $total_count = $pdo->query("SELECT COUNT(*) FROM products")->fetchColumn();
+    $total_count = $pdo->query("SELECT COUNT(*) FROM kd_products")->fetchColumn();
 } catch (Exception $e) {}
 ?>
 

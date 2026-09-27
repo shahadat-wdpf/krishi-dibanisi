@@ -18,7 +18,7 @@ $total_price = 0;
 try {
     $placeholders = str_repeat('?,', count($cart_items) - 1) . '?';
     $ids = array_keys($cart_items);
-    $stmt = $pdo->prepare("SELECT id, name, price, image FROM products WHERE id IN ($placeholders)");
+    $stmt = $pdo->prepare("SELECT id, name, price, image FROM kd_products WHERE id IN ($placeholders)");
     $stmt->execute($ids);
     $products = $stmt->fetchAll();
     

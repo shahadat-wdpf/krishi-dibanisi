@@ -10,7 +10,7 @@ $id = (int) $_GET['id'];
 
 // Fetch product data
 try {
-    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM kd_products WHERE id = ?");
     $stmt->execute([$id]);
     $product = $stmt->fetch();
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $stmt = $pdo->prepare("
-            UPDATE products 
+            UPDATE kd_products 
             SET name=?, price=?, stock=?, unit=?, category_id=?, description=?, image=?, is_featured=?
             WHERE id=?
         ");
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Fetch categories
-$categories = $pdo->query("SELECT * FROM categories")->fetchAll();
+$categories = $pdo->query("SELECT * FROM kd_categories")->fetchAll();
 ?>
 
 <div style="margin-bottom:2.5rem; display:flex; justify-content:space-between; align-items:center;">

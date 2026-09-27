@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // based on original logic. The user didn't mention adding a messages table, but let's keep the existing logic.
     if (!empty($name) && !empty($email) && !empty($message)) {
         try {
-            $stmt = $pdo->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO kd_messages (name, email, message) VALUES (?, ?, ?)");
             $stmt->execute([$name, $email, $message]);
             $success_msg = 'আপনার বার্তা সফলভাবে পাঠানো হয়েছে! আমরা দ্রুত আপনার সাথে যোগাযোগ করব।';
         } catch (Exception $e) {

@@ -5,7 +5,7 @@ if(isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     try {
         // Prevent deleting self (if admin is in users table and logged in)
         // For simplicity, we just delete but in a real app check for permissions
-        $pdo->prepare("DELETE FROM users WHERE id=? AND role='customer'")->execute([$_GET['delete']]);
+        $pdo->prepare("DELETE FROM kd_users WHERE id=? AND role='customer'")->execute([$_GET['delete']]);
         echo "<script>alert('গ্রাহক অ্যাকাউন্ট সফলভাবে মুছে ফেলা হয়েছে!'); window.location.href='customers.php';</script>";
         exit;
     } catch(Exception $e) {
@@ -18,11 +18,11 @@ $search = $_GET['search'] ?? '';
 $customers = [];
 try {
     if(!empty($search)) {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE role='customer' AND (name LIKE ? OR email LIKE ?) ORDER BY id DESC");
+        $stmt = $pdo->prepare("SELECT * FROM kd_users WHERE role='customer' AND (name LIKE ? OR email LIKE ?) ORDER BY id DESC");
         $search_param = "%$search%";
         $stmt->execute([$search_param, $search_param]);
     } else {
-        $stmt = $pdo->query("SELECT * FROM users WHERE role='customer' ORDER BY id DESC");
+        $stmt = $pdo->query("SELECT * FROM kd_users WHERE role='customer' ORDER BY id DESC");
     }
     $customers = $stmt->fetchAll();
 } catch(Exception $e) {}
@@ -31,7 +31,7 @@ try {
 $total_customers = count($customers);
 if(!empty($search)) {
     // Total count without search filter for stats
-    $total_count = $pdo->query("SELECT COUNT(*) FROM users WHERE role='customer'")->fetchColumn();
+    $total_count = $pdo->query("SELECT COUNT(*) FROM kd_users WHERE role='customer'")->fetchColumn();
 } else {
     $total_count = $total_customers;
 }

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'customer')");
+        $stmt = $pdo->prepare("INSERT INTO kd_users (name, email, password, role) VALUES (?, ?, ?, 'customer')");
         $stmt->execute([$name, $email, $password]);
         echo "<script>alert('রেজিস্ট্রেশন সফল হয়েছে! এখন লগইন করুন।'); window.location.href='login.php';</script>";
         exit;

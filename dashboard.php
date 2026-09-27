@@ -14,7 +14,7 @@ $user_created = date('d M, Y');
 
 // Fetch user profile info
 try {
-    $stmt_u = $pdo->prepare("SELECT name, email, role, created_at FROM users WHERE id = ?");
+    $stmt_u = $pdo->prepare("SELECT name, email, role, created_at FROM kd_users WHERE id = ?");
     $stmt_u->execute([$user_id]);
     $u_data = $stmt_u->fetch();
     if ($u_data) {
@@ -33,7 +33,7 @@ $total_spent = 0;
 $order_items_map = [];
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC");
+    $stmt = $pdo->prepare("SELECT * FROM kd_orders WHERE user_id = ? ORDER BY id DESC");
     $stmt->execute([$user_id]);
     $user_orders = $stmt->fetchAll();
     $total_orders_count = count($user_orders);
@@ -49,8 +49,8 @@ try {
         $in_placeholders = implode(',', array_fill(0, count($order_ids), '?'));
         
         $item_stmt = $pdo->prepare("SELECT oi.*, p.name, p.image, p.unit 
-                                    FROM order_items oi 
-                                    LEFT JOIN products p ON oi.product_id = p.id 
+                                    FROM kd_order_items oi 
+                                    LEFT JOIN kd_products p ON oi.product_id = p.id 
                                     WHERE oi.order_id IN ($in_placeholders)");
         $item_stmt->execute($order_ids);
         $fetched_items = $item_stmt->fetchAll();

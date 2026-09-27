@@ -5,7 +5,7 @@ $type_filter = $_GET['type'] ?? '';
 $search = $_GET['search'] ?? '';
 
 // Build query
-$query = "SELECT * FROM blogs WHERE is_published = 1";
+$query = "SELECT * FROM kd_blogs WHERE is_published = 1";
 $params = [];
 
 if ($type_filter === 'farming_tips' || $type_filter === 'farmer_story') {

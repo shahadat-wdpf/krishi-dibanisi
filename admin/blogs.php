@@ -2,13 +2,13 @@
 
 $blogs = [];
 try {
-    $blogs = $pdo->query("SELECT * FROM blogs ORDER BY id DESC")->fetchAll();
+    $blogs = $pdo->query("SELECT * FROM kd_blogs ORDER BY id DESC")->fetchAll();
 } catch(Exception $e) {}
 
 // Handle Delete
 if(isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     try {
-        $pdo->prepare("DELETE FROM blogs WHERE id=?")->execute([$_GET['delete']]);
+        $pdo->prepare("DELETE FROM kd_blogs WHERE id=?")->execute([$_GET['delete']]);
         echo "<script>alert('ব্লগ পোস্ট মুছে ফেলা হয়েছে!'); window.location.href='blogs.php';</script>";
         exit;
     } catch(Exception $e) {}
@@ -17,11 +17,11 @@ if(isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 // Handle Publish Toggle
 if(isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
     try {
-        $current = $pdo->prepare("SELECT is_published FROM blogs WHERE id=?");
+        $current = $pdo->prepare("SELECT is_published FROM kd_blogs WHERE id=?");
         $current->execute([$_GET['toggle']]);
         $row = $current->fetch();
         $new_status = $row['is_published'] ? 0 : 1;
-        $pdo->prepare("UPDATE blogs SET is_published=? WHERE id=?")->execute([$new_status, $_GET['toggle']]);
+        $pdo->prepare("UPDATE kd_blogs SET is_published=? WHERE id=?")->execute([$new_status, $_GET['toggle']]);
         header("Location: blogs.php");
         exit;
     } catch(Exception $e) {}

@@ -10,7 +10,7 @@ if (!$id) {
 // Fetch blog post
 $blog = null;
 try {
-    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE id = ? AND is_published = 1");
+    $stmt = $pdo->prepare("SELECT * FROM kd_blogs WHERE id = ? AND is_published = 1");
     $stmt->execute([$id]);
     $blog = $stmt->fetch();
 } catch (Exception $e) {}
@@ -23,7 +23,7 @@ if (!$blog) {
 // Fetch related posts (same type, exclude current)
 $related = [];
 try {
-    $stmt = $pdo->prepare("SELECT * FROM blogs WHERE type = ? AND id != ? AND is_published = 1 ORDER BY created_at DESC LIMIT 3");
+    $stmt = $pdo->prepare("SELECT * FROM kd_blogs WHERE type = ? AND id != ? AND is_published = 1 ORDER BY created_at DESC LIMIT 3");
     $stmt->execute([$blog['type'], $blog['id']]);
     $related = $stmt->fetchAll();
 } catch (Exception $e) {}

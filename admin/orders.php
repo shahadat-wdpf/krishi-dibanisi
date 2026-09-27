@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = (int)$_POST['order_id'];
         $status = $_POST['status'];
         try {
-            $stmt = $pdo->prepare("UPDATE orders SET status = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE kd_orders SET status = ? WHERE id = ?");
             $stmt->execute([$status, $id]);
             echo "<script>alert('অর্ডারের স্ট্যাটাস আপডেট হয়েছে!'); window.location.href='orders.php';</script>";
             exit;
@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif(isset($_POST['order_id'], $_POST['action']) && $_POST['action'] === 'delete') {
         $id = (int)$_POST['order_id'];
         try {
-            $stmt = $pdo->prepare("DELETE FROM orders WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM kd_orders WHERE id = ?");
             $stmt->execute([$id]);
             echo "<script>alert('অর্ডারটি স্থায়ীভাবে মুছে ফেলা হয়েছে!'); window.location.href='orders.php';</script>";
             exit;
@@ -36,7 +36,7 @@ if(in_array($status_filter, ['pending', 'processing', 'shipped', 'delivered', 'c
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM orders $where_clause ORDER BY id DESC");
+    $stmt = $pdo->prepare("SELECT * FROM kd_orders $where_clause ORDER BY id DESC");
     $stmt->execute($params);
     $orders = $stmt->fetchAll();
     
@@ -44,7 +44,7 @@ try {
         $order_ids = array_column($orders, 'id');
         $in_placeholders = implode(',', array_fill(0, count($order_ids), '?'));
         
-        $item_stmt = $pdo->prepare("SELECT oi.*, p.name, p.image, p.unit FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id IN ($in_placeholders)");
+        $item_stmt = $pdo->prepare("SELECT oi.*, p.name, p.image, p.unit FROM kd_order_items oi JOIN kd_products p ON oi.product_id = p.id WHERE oi.order_id IN ($in_placeholders)");
         $item_stmt->execute($order_ids);
         $fetched_items = $item_stmt->fetchAll();
         

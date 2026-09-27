@@ -9,21 +9,21 @@ $recent_orders = [];
 $low_stock_products = [];
 
 try {
-    $total_orders = $pdo->query("SELECT COUNT(*) FROM orders")->fetchColumn();
-    $pending_orders = $pdo->query("SELECT COUNT(*) FROM orders WHERE status='pending'")->fetchColumn();
-    $total_revenue = $pdo->query("SELECT SUM(total_amount) FROM orders WHERE status='delivered'")->fetchColumn() ?: 0;
+    $total_orders = $pdo->query("SELECT COUNT(*) FROM kd_orders")->fetchColumn();
+    $pending_orders = $pdo->query("SELECT COUNT(*) FROM kd_orders WHERE status='pending'")->fetchColumn();
+    $total_revenue = $pdo->query("SELECT SUM(total_amount) FROM kd_orders WHERE status='delivered'")->fetchColumn() ?: 0;
     
     // Fetch total customer count safely
     try {
-        $total_customers = $pdo->query("SELECT COUNT(*) FROM users WHERE role='user'")->fetchColumn();
+        $total_customers = $pdo->query("SELECT COUNT(*) FROM kd_users WHERE role='customer' OR role='user'")->fetchColumn();
     } catch (Exception $e) {
-        $total_customers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn() ?: 1;
+        $total_customers = $pdo->query("SELECT COUNT(*) FROM kd_users")->fetchColumn() ?: 1;
     }
 
-    $stmt = $pdo->query("SELECT id, user_id, total_amount, status, payment_method, created_at FROM orders ORDER BY id DESC LIMIT 5");
+    $stmt = $pdo->query("SELECT id, user_id, total_amount, status, payment_method, created_at FROM kd_orders ORDER BY id DESC LIMIT 5");
     $recent_orders = $stmt->fetchAll();
 
-    $stmt_stock = $pdo->query("SELECT id, name, stock, image FROM products WHERE stock <= 10 ORDER BY stock ASC LIMIT 5");
+    $stmt_stock = $pdo->query("SELECT id, name, stock, image FROM kd_products WHERE stock <= 10 ORDER BY stock ASC LIMIT 5");
     $low_stock_products = $stmt_stock->fetchAll();
 
     // Fetch Last 14 Days Sales Data
@@ -39,7 +39,7 @@ try {
     }
 
     $sales_query = $pdo->query("SELECT DATE(created_at) as order_date, SUM(total_amount) as daily_revenue 
-                                FROM orders 
+                                FROM kd_orders 
                                 WHERE status='delivered' AND created_at >= DATE(NOW() - INTERVAL 14 DAY)
                                 GROUP BY DATE(created_at)");
     
@@ -137,7 +137,9 @@ try {
 <!-- Page Header Banner -->
 <div style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
     <div>
-        <h1 style="font-size: 1.85rem; font-weight: 800; font-family: 'Outfit', sans-serif; color: var(--white); margin-bottom: 0.3rem;">
+        <h1 style="font-size: 1.85rem; font-weight: 
+        800; font-family: 'Outfit', sans-serif; 
+        color: var(--white); margin-bottom: 0.3rem;">
             ড্যাশবোর্ড ওভারভিউ
         </h1>
         <p style="color: var(--text-light); font-size: 0.95rem;">আপনার শপের রিয়েল-টাইম পারফরম্যান্স এবং অর্ডার বিশ্লেষণ</p>
