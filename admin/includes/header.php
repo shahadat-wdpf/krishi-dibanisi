@@ -583,8 +583,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
     $notif_pending = 0;
     $notif_orders = [];
     try {
-        $notif_pending = $pdo->query("SELECT COUNT(*) FROM orders WHERE status='pending'")->fetchColumn();
-        $notif_orders = $pdo->query("SELECT id, total_amount, payment_method, created_at FROM orders WHERE status='pending' ORDER BY id DESC LIMIT 5")->fetchAll();
+        $notif_pending = $pdo->query("SELECT COUNT(*) FROM kd_orders WHERE status='pending'")->fetchColumn();
+        $notif_orders = $pdo->query("SELECT id, total_amount, payment_method, created_at FROM kd_orders WHERE status='pending' ORDER BY id DESC LIMIT 5")->fetchAll();
     } catch(Exception $e) {}
     ?>
 

@@ -4,7 +4,7 @@
 if (isset($_GET['delete'])) {
     $id = (int) $_GET['delete'];
     try {
-        $pdo->query("DELETE FROM kd_products WHERE id = $id");
+         $pdo->prepare("DELETE FROM kd_products WHERE id = ?")->execute([$id]);
         echo "<script>alert('পণ্য মুছে ফেলা হয়েছে!'); window.location.href='products.php';</script>";
         exit;
     } catch (Exception $e) {
