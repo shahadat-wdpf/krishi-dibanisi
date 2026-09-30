@@ -233,7 +233,7 @@ $category_images = [
                         <div class="product-price">৳ <?= number_format($product['price'], 2) ?> <span>/<?= htmlspecialchars($product['unit']) ?></span></div>
                         
                         <?php if($product['stock'] > 0): ?>
-                            <div style="font-size:0.85rem; color:var(--primary-light); font-weight:600; margin-bottom:1rem; flex-grow:1;"><i class="fa-solid fa-circle-check"></i> স্টকে আছে</div>
+                            <div style="font-size:0.85rem; color:var(--primary-light); font-weight:600; margin-bottom:1rem; flex-grow:1;"><i class="fa-solid fa-circle-check"></i> স্টকে আছে (<?= $product['stock'] ?>)</div>
                         <?php else: ?>
                             <div style="font-size:0.85rem; color:#dc2626; font-weight:600; margin-bottom:1rem; flex-grow:1;"><i class="fa-solid fa-circle-xmark"></i> আউট অফ স্টক</div>
                         <?php endif; ?>

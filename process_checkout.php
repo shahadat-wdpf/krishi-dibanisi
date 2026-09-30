@@ -49,16 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_products->execute($ids);
         $products = $stmt_products->fetchAll(PDO::FETCH_KEY_PAIR); // returns [id => price]
         
-        // 3. Insert into order_items and update stock
+        // 3. Insert into order_items
         $stmt_item = $pdo->prepare("INSERT INTO kd_order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
-        $stmt_stock = $pdo->prepare("UPDATE kd_products SET stock = stock - ? WHERE id = ?");
         
         foreach($cart_items as $prod_id => $qty) {
             $price = $products[$prod_id] ?? 0;
             $stmt_item->execute([$order_id, $prod_id, $qty, $price]);
-            
-            // Decrease stock
-            $stmt_stock->execute([$qty, $prod_id]);
         }
         
         // 4. Commit and clear cart & coupon
